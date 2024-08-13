@@ -1,6 +1,6 @@
 import Amazon from "../assets/Amazon.png"
 
-export default function Company() {
+export default function CompanyDetails() {
     return (
         <div className="card bg-base-300 w-96 shadow-xl">
             <figure className="px-10 pt-10">

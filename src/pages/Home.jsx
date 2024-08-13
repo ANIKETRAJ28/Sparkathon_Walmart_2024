@@ -6,16 +6,12 @@ export default function Home() {
 
     const navigate = useNavigate();
 
-    function handleCLick() {
-        navigate("/competitors");
-    }
-
     return (
         <Layout>
             <div className="flex flex-col items-center gap-8">
                 <img className="w-[70vw]" src={Walmart}/>
                 <div className="text-5xl">Available for your Service</div>
-                <button onClick={handleCLick} className="btn btn-info">Sign In with Google</button>
+                <button onClick={() => navigate("/competitors")} className="btn btn-info">Sign In with Google</button>
             </div>
         </Layout>
     );
