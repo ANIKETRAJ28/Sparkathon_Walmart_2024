@@ -2,7 +2,7 @@ import Amazon from "../assets/Amazon.png"
 
 export default function Product() {
     return (
-        <div className="card bg-base-100 w-96 shadow-xl">
+        <div className="card bg-base-300 w-96 shadow-xl">
             <figure>
                 <img
                 src={Amazon}
