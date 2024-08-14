@@ -2,8 +2,28 @@ import { IoAdd } from "react-icons/io5";
 import CompanyDetails from "../components/CompanyDetails";
 import Layout from "../Layout/Layout";
 import AddProduct from "../components/AddCompany";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Company() {
+
+    const API_URL = 'http://localhost:3001/api/v1'; 
+    const [allCompetitors, setAllCompetitors] = useState([]);
+    useEffect(() => {
+        getCompetitors()
+    }, [allCompetitors]);
+
+    async function getCompetitors() {
+        const response = await axios.get(`${API_URL}/competitors`);
+        if(response.data.data.length == allCompetitors.length) return;
+        setAllCompetitors(response.data.data);
+    }
+
+    async function addCompetitor(data) {
+        const response = await axios.post(`${API_URL}/competitors/add`, data);
+        setAllCompetitors([...allCompetitors, response.data.data]);
+    }
+
     return (
         <Layout>
             <div className="flex m-4 flex-wrap justify-around gap-4">
@@ -13,10 +33,12 @@ export default function Company() {
                     </div>
                     <div>Add More</div>
                 </div>
-                <CompanyDetails/>
-                <CompanyDetails/>
+                {
+                    allCompetitors &&
+                    allCompetitors.map(competitor => <CompanyDetails key={competitor._id} title={competitor.name}/>)
+                }
             </div>
-            <AddProduct/>
+            <AddProduct addCompetitor={addCompetitor}/>
         </Layout>
     );
 }
