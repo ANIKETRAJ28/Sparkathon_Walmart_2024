@@ -1,22 +1,64 @@
-export default function AddProduct() {
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+export default function AddProduct({AddItem}) {
+
+    const API_URL = 'http://localhost:3001/api/v1';
+    const [product, setProduct] = useState({
+        name: '',
+        productUrlPage: '',
+        currentPrice: '',
+        inventory: '',
+        salesLastMonth: '',
+        competitorId: undefined,
+        competitors: []
+    });
+
+    useEffect(() => {
+        if(product.competitors.length > 0) return;
+        getCompetitors();
+    }, [product.competitors]);
+
+    async function getCompetitors() {
+        const response = await axios.get(`${API_URL}/competitors`);
+        setProduct({...product, competitors: response.data.data});
+    }
+
+    function handleOnChange(e) {
+        const {name, value} = e.target;
+        setProduct({...product, [name]: value});
+    }
+
+    async function onSubmit() {
+        await AddItem(product.competitorId, product);
+    }
+
     return (
         <dialog id="add-prod" className="modal">
             <div className="modal-box flex flex-col items-center gap-8 pr-12 relative">
                 <button onClick={() => document.getElementById("add-prod").close()} className="btn btn-sm btn-circle btn-ghost absolute top-2 right-2">✕</button>
-                <input type="text" placeholder="Competitor Name" className="input input-bordered w-full" />
-                <input type="text" placeholder="Competitor URL" className="input input-bordered w-full" />
-                <input type="text" placeholder="Competitor Logo URL" className="input input-bordered w-full" />
+                <input onChange={handleOnChange} name="name" type="text" placeholder="Product Name" className="input input-bordered w-full" />
+                <input onChange={handleOnChange} name="productUrlPage" type="text" placeholder="Product URL" className="input input-bordered w-full" />
+                <input onChange={handleOnChange} name="currentPrice" type="price" placeholder="Product Price" className="input input-bordered w-full" />
+                <input onChange={handleOnChange} name="inventory" type="text" placeholder="Product Inventory" className="input input-bordered w-full" />
+                <input onChange={handleOnChange} name="salesLastMonth" type="text" placeholder="Sales" className="input input-bordered w-full" />
                 <details id="drop-down" className="dropdown dropdown-right self-start">
                     <summary className="btn m-1">Select Company</summary>
-                    <ul onClick={() => {
+                    <ul onClick={(e) => {
+                        const competitor = e.target.getAttribute('id');
+                        setProduct({...product, competitorId: competitor});
                         let open = document.getElementById("drop-down");
                         open.open = !open.open;
                     }} className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                        <li><a>Item 1</a></li>
-                        <li><a>Item 2</a></li>
+                        {
+                            product.competitors.length > 0 && product.competitors.map(competitor => <li key={competitor._id}><a id={competitor._id}>{competitor.name}</a></li>)
+                        }
                     </ul>
                 </details>
-                <button onClick={() => document.getElementById("add-prod").close()} className="btn btn-primary self-end">Submit</button>
+                <button onClick={() => {
+                    onSubmit();
+                    document.getElementById("add-prod").close()
+                }} className="btn btn-primary self-end">Submit</button>
             </div>
             <form method="dialog" className="modal-backdrop">
                 <button>close</button>

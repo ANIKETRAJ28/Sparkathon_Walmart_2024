@@ -7,7 +7,7 @@ export default function NavBar() {
     const navigate = useNavigate();
     const { user, logout } = useContext(AuthContext);
 
-    console.log('Current user:', user); // Debugging log
+    // console.log('Current user:', user); // Debugging log
 
     return (
         <div>

@@ -1,6 +1,6 @@
 import Amazon from "../assets/Amazon.png"
 
-export default function Product() {
+export default function Product({title, price}) {
     return (
         <div className="card bg-base-300 w-96 shadow-xl">
             <figure>
@@ -9,8 +9,8 @@ export default function Product() {
             />
             </figure>
             <div className="card-body">
-                <h2 className="card-title">I-phone</h2>
-                <div>Current Price</div>
+                <h2 className="card-title">{title}</h2>
+                <div>Current Price: {price}</div>
                 <div>Optimal Price</div>
                 <button className="btn btn-primary w-fit">Generate Your Price</button>
             </div>
