@@ -1,6 +1,6 @@
 import Amazon from "../assets/Amazon.png"
 
-export default function CompanyDetails({title}) {
+export default function CompanyDetails({title, id, deleteCompetitor}) {
     return (
         <div className="card bg-base-300 w-96 shadow-xl">
             <figure className="px-10 pt-10">
@@ -12,7 +12,7 @@ export default function CompanyDetails({title}) {
             <div className="card-body items-center text-center">
                 <h2 className="card-title">{title}</h2>
                 <div className="card-actions">
-                <button className="btn btn-primary">Compete</button>
+                <button onClick={() => deleteCompetitor(id)} className="btn btn-primary">Delete</button>
                 </div>
             </div>
         </div>

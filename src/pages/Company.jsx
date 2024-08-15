@@ -24,6 +24,11 @@ export default function Company() {
         setAllCompetitors([...allCompetitors, response.data.data]);
     }
 
+    async function deleteCompetitor(id) {
+        await axios.delete(`${API_URL}/competitors/${id}`);
+        setAllCompetitors(allCompetitors.filter(competitor => competitor._id != id));
+    }
+
     return (
         <Layout>
             <div className="flex flex-wrap justify-around gap-4 m-4">
@@ -35,7 +40,7 @@ export default function Company() {
                 </div>
                 {
                     allCompetitors &&
-                    allCompetitors.map(competitor => <CompanyDetails key={competitor._id} title={competitor.name}/>)
+                    allCompetitors.map(competitor => <CompanyDetails key={competitor._id} id={competitor._id} title={competitor.name} deleteCompetitor={deleteCompetitor}/>)
                 }
             </div>
             <AddProduct addCompetitor={addCompetitor}/>

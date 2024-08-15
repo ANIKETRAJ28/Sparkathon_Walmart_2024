@@ -21,6 +21,11 @@ export default function Product() {
         setProduct([...product, response.data.data]);
     }
 
+    async function deleteProduct(id) {
+        await axios.delete(`${API_URL}/product/${id}`);
+        setProduct(product.filter(item => item._id != id));
+    }
+
     useEffect(() => {
         getProduct();
     }, [product])
@@ -35,7 +40,7 @@ export default function Product() {
                         <div>Add More</div>
                     </div>
                 {
-                    product.length > 0 && product.map(item => <CompareProduct key={product._id} title={item.name} price={item.currentPrice}/>)
+                    product.length > 0 && product.map(item => <CompareProduct key={product._id} title={item.name} price={item.currentPrice} id={item._id} deleteProduct={deleteProduct}/>)
                 }
             </div>
             <AddProduct AddItem={AddItem}/>
