@@ -6,8 +6,8 @@ import AddProduct from "../components/AddCompany";
 export default function Company() {
     return (
         <Layout>
-            <div className="flex m-4 flex-wrap justify-around gap-4">
-                <div onClick={() => document.getElementById('add-comp').showModal()} className="card bg-base-200 w-96 shadow-xl flex justify-center items-center cursor-pointer">
+            <div className="flex flex-wrap justify-around gap-4 m-4">
+                <div onClick={() => document.getElementById('add-comp').showModal()} className="flex items-center justify-center shadow-xl cursor-pointer card bg-base-200 w-96">
                     <div className="text-6xl">
                         <IoAdd/>
                     </div>

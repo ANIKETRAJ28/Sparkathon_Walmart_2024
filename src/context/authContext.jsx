@@ -1,4 +1,3 @@
-// authContext.jsx
 import { createContext, useState, useEffect } from 'react';
 import { signin, signup } from '../services/authService';
 
@@ -14,7 +13,7 @@ export const AuthProvider = ({ children }) => {
             setUser({ token: userToken });
         }
     }, []);
-    
+
     const handleSignup = async (userData) => {
         try {
             const data = await signup(userData);
