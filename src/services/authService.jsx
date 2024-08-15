@@ -15,7 +15,6 @@ export const signup = async (userData) => {
     }
 };
 
-
 // In authService.jsx
 export const signin = async (userData) => {
     try {
