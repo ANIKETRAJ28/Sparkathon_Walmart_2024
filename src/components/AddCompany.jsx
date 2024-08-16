@@ -13,19 +13,30 @@ export default function AddProduct({addCompetitor}) {
         setCompetitor({...competitor, [name]: value});
     }
 
+    function reset() {
+        setCompetitor({
+            name: '',
+            url: ''
+        });
+    }
+
     return (
         <dialog id="add-comp" className="modal">
             <div className="modal-box flex flex-col items-center gap-8 pr-12 relative">
-            <button onClick={() => document.getElementById("add-comp").close()} className="btn btn-sm btn-circle btn-ghost absolute top-2 right-2">✕</button>
-                <input name="name" type="text" placeholder="Competitor Name" className="input input-bordered w-full" onChange={handleSetCompetitor}/>
-                <input name="url" type="text" placeholder="Competitor URL" className="input input-bordered w-full" onChange={handleSetCompetitor} />
+            <button onClick={() => {
+                reset();
+                document.getElementById("add-comp").close();
+            }} className="btn btn-sm btn-circle btn-ghost absolute top-2 right-2">✕</button>
+                <input value={competitor.name} name="name" type="text" placeholder="Competitor Name" className="input input-bordered w-full" onChange={handleSetCompetitor}/>
+                <input value={competitor.url} name="url" type="text" placeholder="Competitor URL" className="input input-bordered w-full" onChange={handleSetCompetitor} />
                 <button onClick={() => {
                     document.getElementById("add-comp").close();
                     if(competitor.name && competitor.url) addCompetitor(competitor);
+                    reset();
                 }} className="btn btn-primary self-end">Submit</button>
             </div>
             <form method="dialog" className="modal-backdrop">
-                <button>close</button>
+                <button onClick={reset}>close</button>
             </form>
         </dialog>
     );

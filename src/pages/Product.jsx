@@ -40,7 +40,7 @@ export default function Product() {
                         <div>Add More</div>
                     </div>
                 {
-                    product.length > 0 && product.map(item => <CompareProduct key={product._id} title={item.name} price={item.currentPrice} productId={item._id} deleteProduct={deleteProduct}/>)
+                    product.length > 0 && product.map(item => <CompareProduct key={product._id} competitorId={item.competitor} title={item.name} price={item.currentPrice} productId={item._id} deleteProduct={deleteProduct}/>)
                 }
             </div>
             <AddProduct AddItem={AddItem}/>
